@@ -1,6 +1,6 @@
 # Steps to run this app and use it in Microsoft Teams
 
-1. Begin your tunnelling service to get an https endpoint (we recommend ngrok).
+1. Begin your tunneling service to get an https endpoint (we recommend [ngrok](https://ngrok.com/)).
 
 	* Open a new **Command Prompt** window. 
 

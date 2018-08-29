@@ -16,26 +16,18 @@ namespace Microsoft.Teams.Learning.Dialogs
     [Serializable]
     public class RootDialog : DispatchDialog
     {
-        [RegexPattern("hello")]
-        [RegexPattern("hi")]
+        [RegexPattern("begin match")]
         [ScorableGroup(1)]
-        public async Task RunHelloDialog(IDialogContext context, IActivity activity)
-        {
-            context.Call(new HelloDialog(), this.EndDialog);
-        }
-
-        [RegexPattern("greet everyone")]
-        [ScorableGroup(1)]
-        public async Task RunGreetDialog(IDialogContext context, IActivity activity)
+        public async Task RunMatchDialog(IDialogContext context, IActivity activity)
         {
             var channelData = context.Activity.GetChannelData<TeamsChannelData>();
             if (channelData.Team != null)
             {
-                context.Call(new GreetDialog(), this.EndDialog);
+                context.Call(new GameMatchDialog(), this.EndDialog);
             }
             else
             {
-                await context.PostAsync("I'm sorry, you can only do this from within a Team.");
+                await context.PostAsync("I'm sorry, you can only create a match from within a Team.");
                 context.Done<object>(null);
             }
         }

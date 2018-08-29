@@ -33,6 +33,21 @@ namespace Microsoft.Teams.Learning.Dialogs
             // For each member, create the conversation and send the greetings message
             foreach (var member in members)
             {
+                // Do not greet the sender.
+                if (member.Id == context.Activity.From.Id)
+                {
+                    continue;
+                }
+
+                // Fetch and increment the number of times that the user has been greeted.
+                if (!context.ConversationData.TryGetValue(member.Id, out int timesGreeted))
+                {
+                    timesGreeted = 0;
+                }
+                timesGreeted++;
+                context.ConversationData.SetValue(member.Id, timesGreeted);
+
+                // Build the 1:1 conversation parameters
                 var parameters = new ConversationParameters
                 {
                     Bot = bot,
@@ -50,7 +65,8 @@ namespace Microsoft.Teams.Learning.Dialogs
                 var message = Activity.CreateMessageActivity();
                 message.From = bot;
                 message.Conversation = new ConversationAccount(id: conversationResource.Id);
-                message.Text = "Greetings!";
+                message.Text = "Greetings! (I have greeted you " + timesGreeted + " time" + (timesGreeted != 1 ? "s" : "") + ")";
+
                 await connectorClient.Conversations.SendToConversationAsync((Activity)message);
             }
 

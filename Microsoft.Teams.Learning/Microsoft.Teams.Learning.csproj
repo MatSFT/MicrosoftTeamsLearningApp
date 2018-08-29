@@ -139,6 +139,7 @@
     <Compile Include="Cards\ThanksForPlayingCard.cs" />
     <Compile Include="Cards\MatchCard.cs" />
     <Compile Include="Cards\ResultCard.cs" />
+    <Compile Include="Controllers\TabController.cs" />
     <Compile Include="Dialogs\GameMatchDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
     <Compile Include="Controllers\MessagesController.cs" />

@@ -133,7 +133,7 @@ namespace Microsoft.Teams.Learning.Controllers
                 var records = members.Select(member =>
                 {
                     var record = ServiceRecordStorage.GetServiceRecordForUserId(member.Id);
-                    return record ?? new ServiceRecord { User = member, Losses = 0, Wins = 0, Ties = 0 };
+                    return record ?? new ServiceRecord { User = member.AsTeamsChannelAccount(), Losses = 0, Wins = 0, Ties = 0 };
                 });
 
 
@@ -237,7 +237,7 @@ namespace Microsoft.Teams.Learning.Controllers
                     var serviceRecord = ServiceRecordStorage.GetServiceRecordForUserId(result.User.Id);
                     if (serviceRecord == null)
                     {
-                        serviceRecord = new ServiceRecord() { User = result.User, Losses = 0, Wins = 0, Ties = 0 };
+                        serviceRecord = new ServiceRecord() { User = result.User.AsTeamsChannelAccount(), Losses = 0, Wins = 0, Ties = 0 };
                     }
                     serviceRecord.Wins += wins;
                     serviceRecord.Losses += losses;
